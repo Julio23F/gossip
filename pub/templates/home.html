@@ -1,0 +1,38 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+{% for gossip in gossips %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ gossip.title }}</h5>
+                        <p>
+                            <span style="color: gray; font-size: 14px">
+                                Publié par 
+                            </span>
+                            <span style="font-weight: bold; font-size: 15px">
+                                {{gossip.user}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ gossip.content }}</p>
+                    </div>
+                    {% if user.is_authenticated %}
+                        <div class="card-footer text-muted">
+                            <a href="{% url 'comment' gossip.slug %}" class="btn btn-secondary btn-sm">Comment</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
+    
